@@ -53,9 +53,21 @@
             <a ng-href="/#!/edit/{{recipe._id}}"> <img src="images/edit.svg" height="12px"> Edit </a>
             <!-- TODO Add a directive to this anchor element so that you can 
             delete the recipe when the user clicks on the 'Delete' link. -->
-            <a class="no-action-link" ng-click="deleteRecipe(recipe, $index)"> <img src="images/delete.svg" height="12px"> Delete </a>
+            <a class="no-action-link" ng-click="openAlertModal(recipe, $index)"> <img src="images/delete.svg" height="12px"> Delete </a>
           </p>
         </div>
+      </div>
+    </div>
+  </div>
+      <!-- Alert Modal -->
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-body">
+        <h3>Are you sure to delete recipe "<strong>{{recipeToBeDeleted.name}}</strong>" ?</h3>
+        <p>To confirm deleting this recipe, click <strong>"Confirm"</strong> button. Or <strong>"Cancel"</strong> to keep it.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="confirmBtn" ng-click="deleteRecipe()">Confirm</button> <button class="cancelBtn" ng-click="closeAlertModal()">Cancel</button>
       </div>
     </div>
   </div>

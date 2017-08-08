@@ -1,9 +1,32 @@
 (function() {
-  "use strict";
+  'use strict';
 
+  class Recipe {
+    constructor() {
+      this.name = '';
+      this.description = '';
+      this.category = '';
+      this.prepTime = 0;
+      this.cookTime = 0;
+      this.ingredients = [];
+      this.steps = [];
+    }
+  }
+
+  class Ingredient {
+    constructor() {
+      this.foodItem = '';
+      this.condition = '';
+      this.amount = 0;
+    }
+  }
   angular
-    .module("app", ["ngRoute"])
-    .controller("RecipesController", function($scope, $location, dataService) {
+    .module('app', ['ngRoute'])
+    .controller('RecipesController', function($scope, $location, dataService) {
+
+      // let recipeToBeDeleted;
+      // let indexOfRecipeToBeDeleted;
+
       dataService.getRecipes(function(response) {
         // console.log(response.data);
         $scope.recipes = response.data;
@@ -14,16 +37,33 @@
         $scope.categories = response.data;
       });
 
-      $scope.deleteRecipe = function(recipe, $index) {
-        dataService.deleteRecipe(recipe._id);
-        $scope.recipes.splice($index, 1);
+      $scope.deleteRecipe = function() {
+        dataService.deleteRecipe($scope.recipeToBeDeleted._id);
+        $scope.recipes.splice($scope.indexOfRecipeToBeDeleted, 1);
+
+        let alertModal = document.getElementById('myModal');
+        alertModal.style.display = 'none';
       };
 
       $scope.directToPage = function(path) {
         $location.path(path);
       };
+
+      $scope.openAlertModal = function(recipe, $index){
+        $scope.recipeToBeDeleted = recipe;
+        $scope.indexOfRecipeToBeDeleted = $index;
+
+        let alertModal = document.getElementById('myModal');
+        alertModal.style.display = 'block';
+      };
+
+      $scope.closeAlertModal = function(){
+        var alertModal = document.getElementById('myModal');
+        alertModal.style.display = 'none';
+      };
+
     })
-    .controller("RecipeDetailController", function(
+    .controller('RecipeDetailController', function(
       $scope,
       $location,
       dataService
@@ -33,12 +73,13 @@
         $scope.categories = response.data;
       });
 
-      const theRecipeId = $location.url().split("/").pop();
-      if (theRecipeId === "add" || theRecipeId === undefined) {
+      const theRecipeId = $location.url().split('/').pop();
+
+      if (theRecipeId === 'add' || theRecipeId === undefined) {
         $scope.recipe = new Recipe();
-        $scope.pageTitle = "Add New Recipe: ";
+        $scope.pageTitle = 'Add New Recipe: ';
       } else {
-        $scope.pageTitle = "Edit Recipe: ";
+        $scope.pageTitle = 'Edit Recipe: ';
         dataService.getRecipeById(theRecipeId, function(response) {
           $scope.recipe = response.data;
           // $scope.defaultCategory = $scope.recipe.category;
@@ -59,9 +100,9 @@
 
       $scope.addNewRecipe = function(recipe) {
         dataService.postRecipe(recipe, function() {
-          console.log("recipe added ...");
+          console.log('recipe added ...');
         });
-        $location.path("/");
+        $location.path('/');
       };
 
       $scope.saveRecipe = function() {
@@ -70,7 +111,7 @@
         } else {
           dataService.postRecipe($scope.recipe);
         }
-        $location.path("/");
+        $location.path('/');
       };
 
       $scope.addNewIngredient = function() {
@@ -80,7 +121,7 @@
       };
 
       $scope.addNewStep = function() {
-        let s = { description: "" };
+        let s = { description: '' };
         // let ing = {  foodItem: "", condition : "",  amount : 0};
         $scope.recipe.steps.push(s);
       };
@@ -93,59 +134,39 @@
         $scope.recipe.steps.splice(index, 1);
       };
     })
-    .service("dataService", function($http) {
+    .service('dataService', function($http) {
       this.getRecipes = function(callback) {
-        $http.get("/api/recipes").then(callback);
+        $http.get('/api/recipes').then(callback);
       };
 
       this.getCategories = function(callback) {
-        $http.get("/api/categories").then(callback);
+        $http.get('/api/categories').then(callback);
       };
 
       this.getFooditems = function(callback) {
-        $http.get("/api/fooditems").then(callback);
+        $http.get('/api/fooditems').then(callback);
       };
 
       this.getRecipesByCategory = function(categoryName, callback) {
         // console.log(categoryName);
-        $http.get("/api/recipes?category=" + categoryName).then(callback);
+        $http.get('/api/recipes?category=' + categoryName).then(callback);
       };
 
       this.getRecipeById = function(_id, callback) {
-        $http.get("/api/recipes/" + _id).then(callback);
+        $http.get('/api/recipes/' + _id).then(callback);
       };
 
       this.updateRecipe = function(_id, data) {
-        $http.put("/api/recipes/" + _id, data);
+        $http.put('/api/recipes/' + _id, data);
       };
 
       this.postRecipe = function(recipe) {
-        $http.post("/api/recipes/", recipe);
+        $http.post('/api/recipes/', recipe);
       };
 
       this.deleteRecipe = function(recipeId) {
-        $http.delete("/api/recipes/" + recipeId);
-        console.log("The " + recipeId + " recipe has been deleted!");
+        $http.delete('/api/recipes/' + recipeId);
+        console.log('The ' + recipeId + ' recipe has been deleted!');
       };
     });
 })();
-
-class Recipe {
-  constructor() {
-    this.name = "";
-    this.description = "";
-    this.category = "";
-    this.prepTime = 0;
-    this.cookTime = 0;
-    this.ingredients = [];
-    this.steps = [];
-  }
-}
-
-class Ingredient {
-  constructor() {
-    this.foodItem = "";
-    this.condition = "";
-    this.amount = 0;
-  }
-}
