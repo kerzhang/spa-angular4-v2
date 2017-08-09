@@ -28,16 +28,21 @@ export class DataService {
     return this.http.get('/api/recipes/' + _id).map(res => res.json());
   };
 
-  updateRecipe = function(_id, data) {
-    this.http.put('/api/recipes/' + _id, data);
+  updateRecipe(_id, data) {
+    return this.http.put('/api/recipes/' + _id, data).subscribe(res => {
+    console.log('recipe updated:' + res);
+    });;
   };
 
-  postRecipe = function(recipe) {
-    this.http.post('/api/recipes/', recipe);
+  postRecipe(recipe) {
+    return this.http.post('/api/recipes/', recipe).subscribe(res => {
+    console.log('recipe posted:' + res);
+    });;
   };
 
-  deleteRecipe = function(recipeId) {
-    this.http.delete('/api/recipes/' + recipeId);
-    console.log('The ' + recipeId + ' recipe has been deleted!');
+  deleteRecipe(recipeId) {
+    this.http.delete('/api/recipes/' + recipeId).subscribe(res => {
+    console.log('The ' + recipeId + ' recipe has been deleted!' + res);
+    });;
   };
 }

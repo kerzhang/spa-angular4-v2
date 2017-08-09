@@ -14,7 +14,7 @@
       <div class="flush-right">
         <!-- TODO Add a directive to this button in order to handle 
         when the user clicks to add a new recipe. -->
-        <button routerLink="add">+ Add Recipe</button>
+        <button [routerLink]="['add']">+ Add Recipe</button>
       </div>
     </div>
   </div>
@@ -35,7 +35,7 @@
     <!-- TODO Replace this anchor element's href attribute with a 
     directive so that you can route the user to the Recipe Detail 
     screen when they click on a row. -->
-    <a href="" routerLink='edit/:{{recipe._id}}'>
+    <a href="" [routerLink]="['edit/'+recipe._id]">
       <div class="grid-70">
         <p>
           <!-- TODO Add binding expressions here in order to 
@@ -51,7 +51,7 @@
             <!-- TODO Replace this anchor element's href attribute with a 
             directive so that you can route the user to the Recipe Detail 
             screen when they click on the 'Edit' link. -->
-            <a href="" routerLink='edit/:{{recipe._id}}'> <img src="../../assets/images/edit.svg" height="12px"> Edit </a>
+            <a href="" [routerLink]="['edit/'+recipe._id]"> <img src="../../assets/images/edit.svg" height="12px"> Edit </a>
             <!-- TODO Add a directive to this anchor element so that you can 
             delete the recipe when the user clicks on the 'Delete' link. -->
             <a class="no-action-link" (click)='openAlertModal(recipe, $index)'> <img src="../../assets/images/delete.svg" height="12px"> Delete </a>

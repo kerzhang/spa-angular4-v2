@@ -16,12 +16,12 @@ export class RecipesComponent {
 
   constructor(public dataService: DataService) {
     this.dataService.getCategories().subscribe(categories => {
-      console.log(categories);
+      // console.log(categories);
       this.categories = categories;
     });
 
     this.dataService.getRecipes().subscribe(recipes => {
-      console.log(recipes);
+      // console.log(recipes);
       this.recipes = recipes;
     });
   }
@@ -49,4 +49,12 @@ export class RecipesComponent {
     let alertModal = document.getElementById('myModal');
     alertModal.style.display = 'none';
   };
+
+  deleteRecipe() {
+        this.dataService.deleteRecipe(this.recipeToBeDeleted._id);
+        this.recipes.splice(this.indexOfRecipeToBeDeleted, 1);
+
+        let alertModal = document.getElementById('myModal');
+        alertModal.style.display = 'none';
+      };
 }
