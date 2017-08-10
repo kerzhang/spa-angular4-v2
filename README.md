@@ -1,9 +1,9 @@
-# spa-angular4-v2
+### A simple SPA implemented with both **AngularJS** and **Angular 4**
 ##### Notes:
 
 The structure of project:
-Code of [client] is the front end implemented with *Angular 4* framework
-Code of [public] is the front end implemented with *AngularJS* framework
+Code of [client] is the front end implemented with **Angular 4** framework
+Code of [public] is the front end implemented with **AngularJS** framework
 Code of [src] is the backend API implemented with ExpressJS.
 
 How to run:
