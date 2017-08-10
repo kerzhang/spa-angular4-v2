@@ -1,10 +1,10 @@
-### A simple SPA implemented with both **AngularJS** and **Angular 4**
+### A simple SPA implemented with both AngularJS and Angular 4
 ##### Notes:
 
 The structure of project:
-Code of [client] is the front end implemented with **Angular 4** framework
-Code of [public] is the front end implemented with **AngularJS** framework
-Code of [src] is the backend API implemented with ExpressJS.
+* Code of [client] is the front end implemented with **Angular 4** framework
+* Code of [public] is the front end implemented with **AngularJS** framework
+* Code of [src] is the backend API implemented with ExpressJS.
 
 How to run:
 1. In terminal, go to the root folder of project, run `npm run-script db` to initialize the database
