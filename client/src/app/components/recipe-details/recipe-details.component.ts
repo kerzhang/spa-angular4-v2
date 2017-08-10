@@ -16,6 +16,7 @@ export class RecipeDetailsComponent implements OnInit {
   isAddingModel: boolean = false;
   recipe: Recipe;
 
+  //Dependency injection of servies to be used
   constructor(
     public dataService: DataService,
     private route: ActivatedRoute,
@@ -23,7 +24,11 @@ export class RecipeDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    //Get the recipe id of current recipe being editing
+    //There isn't id for new creating recipe.
     this.recipeId = this.route.snapshot.params['id'];
+
+    //If the pasing result is not a recipe id, we will know we are 'Adding' a new recipe.
     if (this.recipeId === undefined) {
       this.isAddingModel = true;
       this.recipe = {
@@ -36,26 +41,28 @@ export class RecipeDetailsComponent implements OnInit {
         steps: []
       };
     } else {
+      //Else we are in editing senario, then fetch the recipe by id.
       this.isAddingModel = false;
       this.dataService
         .getRecipeById(this.recipeId)
         .subscribe(recipe => {
           this.recipe = recipe;
-          // console.log(recipe);
         });
     };
 
+    //Get all categories.
     this.dataService.getCategories().subscribe(categories => {
       // console.log(categories);
       this.categories = categories;
     });
-
+    //Get all the food items.
     this.dataService.getFooditems().subscribe(foodItems => {
       // console.log(foodItems);
       this.foodItems = foodItems;
     });
   };
-
+  //Perform either post or put action base on current senario
+  //Call post or update service to perform the real db opreation.
   saveRecipe() {
     if (this.isAddingModel) {
       this.dataService.postRecipe(this.recipe);
@@ -65,27 +72,27 @@ export class RecipeDetailsComponent implements OnInit {
     this.router.navigate(['']);
   };
 
+  //Delete an ingredient.
   deleteIngredient(index) {
     this.recipe.ingredients.splice(index, 1);
   };
 
+  //Delete an existing steps.
   deleteStep(index) {
     this.recipe.steps.splice(index, 1);
   };
-
+  //Add new ingredient
   addNewIngredient() {
     let ing: Ingredient = {
       foodItem: '',
       condition: '',
       amount: ''
     };
-    // let ing = {  foodItem: "", condition : "",  amount : 0};
     this.recipe.ingredients.push(ing);
   };
-
+  //Add new steps.
   addNewStep() {
     let s = { description: '' };
-    // let ing = {  foodItem: "", condition : "",  amount : 0};
     this.recipe.steps.push(s);
   };
 }

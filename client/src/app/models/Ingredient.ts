@@ -1,4 +1,5 @@
-  export interface Ingredient {
+//Ingredient object  
+export interface Ingredient {
       foodItem: string;
       condition: string;
       amount: string;

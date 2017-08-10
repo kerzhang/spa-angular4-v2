@@ -15,19 +15,19 @@ export class RecipesComponent {
   indexOfRecipeToBeDeleted: any = -1;
 
   constructor(public dataService: DataService) {
+    //Get all categories
     this.dataService.getCategories().subscribe(categories => {
-      // console.log(categories);
       this.categories = categories;
     });
-
+    //Get all recipes.
     this.dataService.getRecipes().subscribe(recipes => {
-      // console.log(recipes);
       this.recipes = recipes;
     });
   }
 
   ngOnInit() {}
 
+  //Get all the recipes belong to a specific categories.
   getRecipesByCategory(selectedCategory) {
     this.dataService
       .getRecipesByCategoryName(selectedCategory)
@@ -37,6 +37,7 @@ export class RecipesComponent {
       });
   }
 
+  //Open the confirm dialog for deleting a recipe.
   openAlertModal = function(recipe, $index) {
     this.recipeToBeDeleted = recipe;
     this.indexOfRecipeToBeDeleted = $index;
@@ -50,11 +51,12 @@ export class RecipesComponent {
     alertModal.style.display = 'none';
   };
 
+  //Delete an existing item
   deleteRecipe() {
-        this.dataService.deleteRecipe(this.recipeToBeDeleted._id);
-        this.recipes.splice(this.indexOfRecipeToBeDeleted, 1);
-
-        let alertModal = document.getElementById('myModal');
-        alertModal.style.display = 'none';
-      };
+    this.dataService.deleteRecipe(this.recipeToBeDeleted._id);
+    this.recipes.splice(this.indexOfRecipeToBeDeleted, 1);
+    //close the deleting confirm dialog
+    let alertModal = document.getElementById('myModal');
+    alertModal.style.display = 'none';
+  }
 }

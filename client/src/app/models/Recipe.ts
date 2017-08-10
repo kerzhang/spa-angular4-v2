@@ -1,4 +1,5 @@
-  export interface Recipe {
+//Recipe object  
+export interface Recipe {
       name:string;
       description:string;
       category: any;
