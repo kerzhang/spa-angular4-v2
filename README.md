@@ -6,7 +6,7 @@ The structure of project:
 * Code of [public] is the front end implemented with **AngularJS** framework
 * Code of [src] is the backend API implemented with ExpressJS.
 
-How to run:
+>How to run:
 
 > **The very first action: please run `npm install` in both proj *root* path and *client* path under the root path. Because Angular 4 part was build with Angual-cli proj starter separately.**
 
