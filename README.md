@@ -8,7 +8,7 @@ The structure of project:
 
 How to run:
 
-**The very first action: please run `npm install` in both proj *root* path and *client* path under the root path. Because Angular 4 part was build with Angual-cli proj starter.**
+> **The very first action: please run `npm install` in both proj *root* path and *client* path under the root path. Because Angular 4 part was build with Angual-cli proj starter separately.**
 
 1. In terminal, go to the root folder of project, run `npm run-script db` to initialize the database
 2. Then run `npm start` to start the ExpressJS first.
