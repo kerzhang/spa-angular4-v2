@@ -7,7 +7,7 @@ The structure of project:
 * Code of [src] is the backend API implemented with ExpressJS.
 
 How to run:
-** The very first action: please run `npm install` in both proj *root* path and *client* path under the root path. Because Angular 4 part was build with Angual-cli proj starter. **
+**The very first action: please run `npm install` in both proj *root* path and *client* path under the root path. Because Angular 4 part was build with Angual-cli proj starter.**
 1. In terminal, go to the root folder of project, run `npm run-script db` to initialize the database
 2. Then run `npm start` to start the ExpressJS first.
 3. Open your browser and input `http://localhost:5000`. This will lead you to the AngularJS pages.
